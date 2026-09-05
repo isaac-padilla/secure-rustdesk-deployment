@@ -1,5 +1,5 @@
 #!/bin/bash
-# 🛡️ Hardening Script for RustDesk & Zero-Trust Access
+# Hardening Script for RustDesk and Zero-Trust Access
 set -e
 
 echo "[*] Configuring UFW Default Policies..."
@@ -17,5 +17,5 @@ sudo ufw allow 21116/udp comment 'RustDesk UDP Signaling'
 echo "[*] Enabling Firewall..."
 echo "y" | sudo ufw enable
 
-echo "[✔] Firewall Rules Applied Successfully!"
+echo "[+] Firewall Rules Applied Successfully!"
 sudo ufw status verbose
