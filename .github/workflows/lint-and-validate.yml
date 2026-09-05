@@ -1,0 +1,24 @@
+name: CI - Infrastructure Validation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose Syntax
+        run: |
+          cp .env.example .env
+          docker compose config
+
+      - name: ShellCheck UFW Script
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scans: 'scripts'
