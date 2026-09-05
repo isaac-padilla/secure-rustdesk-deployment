@@ -21,4 +21,4 @@ jobs:
       - name: ShellCheck UFW Script
         uses: ludeeus/action-shellcheck@master
         with:
-          scans: 'scripts'
+          scandir: 'scripts'
