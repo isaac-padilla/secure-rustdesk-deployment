@@ -64,35 +64,42 @@ The self-hosted RustDesk infrastructure functions as an encrypted rendezvous and
 
 ## 🚀 Quickstart & Reproduction Guide
 
-### Prerequisites
-* Linux Server (Ubuntu 22.04 LTS recommended)
-* Docker & Docker Compose installed
-* Tailscale installed and authenticated
+### Prerequisites & Media Preparation
 
-### 1. Clone the Repository
+Before deploying the containerized stack, prepare the underlying server OS:
+
+1. **Download Official OS ISO:** Get the latest [Ubuntu Server 22.04 LTS ISO](https://ubuntu.com/download/server).
+2. **Create Bootable USB Drive:**
+   * **[Rufus](https://rufus.ie/):** Recommended for single-ISO flashing on Windows (use ISO/DD image mode).
+   * **[Ventoy](https://www.ventoy.net/):** Recommended for IT admins. Install Ventoy on your USB once, then simply drag and drop the Ubuntu ISO file into the drive.
+3. **OS Provisioning:** Boot the target machine/server from the USB, complete the minimal base installation, and enable OpenSSH.
+
+### Deployment Steps
+
+#### 1. Clone the Repository
 ```bash
 git clone [https://github.com/isaac-padilla/secure-rustdesk-deployment.git](https://github.com/isaac-padilla/secure-rustdesk-deployment.git)
 cd secure-rustdesk-deployment
 ```
 
-### 2. Configure Environment Variables
+#### 2. Configure Environment Variables
 ```bash
 cp .env.example .env
 # Edit .env and set RELAY_IP to your Tailscale IP or Server Domain
 nano .env
 ```
 
-### 3. Apply Firewall Hardening Script
+#### 3. Apply Firewall Hardening Script
 ```bash
 sudo ./scripts/setup-ufw.sh
 ```
 
-### 4. Deploy Infrastructure
+#### 4. Deploy Infrastructure
 ```bash
 docker compose up -d
 ```
 
-### 5. Retrieve Public Key for Clients
+#### 5. Retrieve Public Key for Clients
 ```bash
 cat ./data/id_ed25519.pub
 ```
@@ -158,7 +165,7 @@ Arquitectura de servidor de soporte remoto auto-hospedada y de nivel empresarial
 2. **Perímetro de Red Zero-Trust:**
    * Red superpuesta (Overlay) configurada mediante **Tailscale**.
    * Política por defecto de rechazo entrante en **Uncomplicated Firewall (UFW)**.
-   * Interfaces de gestión (SSH / CasaOS) expuestas **exclusivamente** a través de la red mesh `tailscale0`.
+   * Interfaces de gestión (SSH / CasaOS) expuestas **exclusively** a través de la red mesh `tailscale0`.
 
 3. **Cifrado a Nivel de Aplicación:**
    * Cifrado de Extremo a Extremo (E2EE) forzado en RustDesk (`hbbs`/`hbbr`) mediante verificación obligatoria de llave pública (`-k _`).
@@ -198,35 +205,42 @@ La infraestructura auto-hospedada de RustDesk funciona como un puente encriptado
 
 ## 🚀 Guía de Inicio Rápido y Reproducción
 
-### Requisitos Previos
-* Servidor Linux (Ubuntu 22.04 LTS recomendado)
-* Docker y Docker Compose instalados
-* Tailscale instalado y autenticado
+### Requisitos Previos y Preparación de Medios
 
-### 1. Clonar el Repositorio
+Antes de desplegar la infraestructura en Docker, prepara el sistema operativo base del servidor:
+
+1. **Descarga de la ISO Oficial:** Obtén la imagen oficial de [Ubuntu Server 22.04 LTS ISO](https://ubuntu.com/download/server).
+2. **Creación de USB Booteable:**
+   * **[Rufus](https://rufus.ie/):** Recomendado para grabar la ISO en una sola unidad USB desde Windows (usar modo imagen ISO/DD).
+   * **[Ventoy](https://www.ventoy.net/):** Herramienta recomendada para administradores TI. Instala Ventoy una vez en tu USB y luego solo arrastra el archivo `.iso` de Ubuntu dentro de la memoria.
+3. **Aprovisionamiento del Servidor:** Arranca el equipo físico o máquina virtual desde la USB, realiza la instalación mínima de Ubuntu Server y habilita el servicio OpenSSH.
+
+### Pasos de Despliegue
+
+#### 1. Clonar el Repositorio
 ```bash
 git clone [https://github.com/isaac-padilla/secure-rustdesk-deployment.git](https://github.com/isaac-padilla/secure-rustdesk-deployment.git)
 cd secure-rustdesk-deployment
 ```
 
-### 2. Configurar Variables de Entorno
+#### 2. Configurar Variables de Entorno
 ```bash
 cp .env.example .env
 # Edita .env y asigna tu IP de Tailscale o Dominio en RELAY_IP
 nano .env
 ```
 
-### 3. Aplicar Script de Firewall
+#### 3. Aplicar Script de Firewall
 ```bash
 sudo ./scripts/setup-ufw.sh
 ```
 
-### 4. Desplegar la Infraestructura
+#### 4. Desplegar la Infraestructura
 ```bash
 docker compose up -d
 ```
 
-### 5. Obtener Llave Pública para Clientes
+#### 5. Obtener Llave Pública para Clientes
 ```bash
 cat ./data/id_ed25519.pub
 ```
